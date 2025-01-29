@@ -7,6 +7,8 @@ export * from "./entities/post.entity";
 export * from "./dtos/painting.dto";
 export * from "./entities/painting.entity";
 
+export * from "./dtos/validate-user.dto";
+
 export * from "./others/painting-size.type";
 export * from "./others/roles.type";
 export * from "./others/validate.type";
