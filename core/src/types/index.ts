@@ -3,9 +3,11 @@ export * from "./entities/user.entity";
 
 export * from "./dtos/post.dto";
 export * from "./entities/post.entity";
+export * from "./dtos/update-post.dto";
 
 export * from "./dtos/painting.dto";
 export * from "./entities/painting.entity";
+export * from "./dtos/update-painting.dto";
 
 export * from "./dtos/validate-user.dto";
 
