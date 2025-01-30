@@ -15,3 +15,4 @@ export * from "./others/painting-size.type";
 export * from "./others/roles.type";
 export * from "./others/validate.type";
 export * from "./others/payload.type";
+export * from "./others/response.type";
