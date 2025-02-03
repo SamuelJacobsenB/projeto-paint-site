@@ -6,7 +6,8 @@
   --primary: #ffb400;
   --light_primary: #ffc333;
   --dark_primary: #cc9000;
-  --secondary: #111111;
+  --secondary: #171717;
+  --light-secondary: #282828;
   --terciary: #f6f6f6;
 }
 
@@ -22,4 +23,8 @@ body,
 #root {
   height: 100%;
   width: 100%;
+}
+
+a:hover {
+  text-decoration: underline;
 }

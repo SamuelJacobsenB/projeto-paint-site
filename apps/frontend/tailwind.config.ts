@@ -8,11 +8,15 @@ export default {
   ],
   theme: {
     extend: {
+      fontSize: {
+        md: "16px",
+      },
       colors: {
         primary: "var(--primary)",
         light_primary: "var(--light-primary)",
         dark_primary: "var(--dark-primary)",
         secondary: "var(--secondary)",
+        light_secondary: "var(--light_secondary)",
         terciary: "var(--terciary)",
       },
     },
