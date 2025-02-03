@@ -7,7 +7,7 @@
   --light_primary: #ffc333;
   --dark_primary: #cc9000;
   --secondary: #171717;
-  --light-secondary: #282828;
+  --light_secondary: #282828;
   --terciary: #f6f6f6;
 }
 
@@ -21,8 +21,8 @@
 html,
 body,
 #root {
-  height: 100%;
-  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 a:hover {
