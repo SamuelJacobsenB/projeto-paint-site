@@ -11,7 +11,7 @@ const MenuLink = ({ link, path }: NavLinkProps) => {
     <li
       className={`flex w-full h-10 text-white text-md p-2 cursor-pointer hover:bg-light_secondary hover:underline ${
         path === link.href &&
-        "bg-primary text-black cursor-default hover:bg-primary hover:no-underline"
+        "bg-primary text-black font-bold hover:cursor-default hover:bg-primary hover:no-underline lg:rounded"
       }`}
     >
       {path === link.href && <p className="w-full h-full"> {link.label}</p>}
