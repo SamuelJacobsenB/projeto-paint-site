@@ -28,3 +28,13 @@ body,
 a:hover {
   text-decoration: underline;
 }
+
+hr {
+  background-color: black;
+  width: 100%;
+  height: 4px;
+}
+
+.transition-simple {
+  transition: 0.4s;
+}

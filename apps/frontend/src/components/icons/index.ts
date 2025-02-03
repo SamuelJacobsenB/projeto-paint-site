@@ -1,7 +1,8 @@
-import { IoClose, IoMenu } from "react-icons/io5";
+import { IoClose, IoHome, IoMenu } from "react-icons/io5";
 
 const I = {
   Close: IoClose,
+  Home: IoHome,
   Menu: IoMenu,
 };
 

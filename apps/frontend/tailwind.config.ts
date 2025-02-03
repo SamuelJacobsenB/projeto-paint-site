@@ -13,8 +13,8 @@ export default {
       },
       colors: {
         primary: "var(--primary)",
-        light_primary: "var(--light-primary)",
-        dark_primary: "var(--dark-primary)",
+        light_primary: "var(--light_primary)",
+        dark_primary: "var(--dark_primary)",
         secondary: "var(--secondary)",
         light_secondary: "var(--light_secondary)",
         terciary: "var(--terciary)",
