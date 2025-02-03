@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "dev:backend": "cd apps/backend && npm run dev",
+    "dev:frontend": "cd apps/frontend && npm run dev",
+    "dev:core": "cd core && npm run dev",
+    "all": "npm-run-all --parallel dev:backend dev:frontend dev:core"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5"
+  }
+}
