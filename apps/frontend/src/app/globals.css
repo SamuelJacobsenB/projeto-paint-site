@@ -51,3 +51,22 @@ hr {
 .spinner {
   animation: spin 2s linear infinite;
 }
+
+@keyframes message-slide {
+  0% {
+    transform: translateY(-200%);
+  }
+  10% {
+    transform: translateY(0%);
+  }
+  90% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-200%);
+  }
+}
+
+.message-animation {
+  animation: message-slide 6s ease-in-out;
+}

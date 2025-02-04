@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useMessage } from "@/contexts";
 import { Controller } from "@/services";
 import { Input, Button, FormPage } from "@/components";
 import { validateLogin } from "@core/validators";
@@ -9,6 +10,7 @@ import { LoginDto } from "@core/types";
 
 const Login = () => {
   const router = useRouter();
+  const { showMessage } = useMessage();
 
   const [error, setError] = useState("");
   const [email, setEmail] = useState("");
@@ -43,6 +45,8 @@ const Login = () => {
 
     localStorage.setItem("access_token", data.access_token);
 
+    showMessage("Login realizado com sucesso!", "success");
+
     router.push("/");
   };
 
@@ -51,6 +55,7 @@ const Login = () => {
       onSubmit={async (evt) => handleSubmit(evt)}
       title="Login:"
       error={error}
+      setError={setError}
     >
       <Input
         label="Email"

@@ -1,4 +1,5 @@
 import { Providers } from "@/contexts";
+import { Message } from "@/components";
 import "./globals.css";
 
 export default function RootLayout({
@@ -10,6 +11,7 @@ export default function RootLayout({
     <html lang="pt-br">
       <Providers>
         <body>
+          <Message />
           <main id="root">{children}</main>
         </body>
       </Providers>
