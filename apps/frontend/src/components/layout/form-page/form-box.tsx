@@ -20,7 +20,7 @@ const FormBox = ({ title, onSubmit, children }: FormBoxProps) => {
       <h1 className="text-3xl font-bold w-full px-4">{title}</h1>
       <form
         onSubmit={async (evt) => await onSubmit(evt)}
-        className="flex flex-col items-center w-full p-4"
+        className="flex flex-col items-center gap-4 w-full p-4"
       >
         {children}
       </form>

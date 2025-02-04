@@ -18,3 +18,4 @@ export * from "./others/payload.type";
 export * from "./others/response.type";
 export * from "./others/nav-link.type";
 export * from "./others/button-color.type";
+export * from "./others/input-color.type";

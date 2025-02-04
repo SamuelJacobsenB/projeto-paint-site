@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, FormPage } from "@/components";
+import { Input, Button, FormPage } from "@/components";
 
 const Login = () => {
   return (
@@ -11,11 +11,8 @@ const Login = () => {
       }}
       title="Login:"
     >
-      <Button
-        color="primary"
-        type="submit"
-        className="bg-primary text-white w-full rounded-md hover:bg-dark_primary"
-      >
+      <Input />
+      <Button type="submit" color="primary" className="w-full">
         Enviar
       </Button>
     </FormPage>
