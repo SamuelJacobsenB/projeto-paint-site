@@ -11,6 +11,8 @@ export * from "./dtos/update-painting.dto";
 
 export * from "./dtos/validate-user.dto";
 
+export * from "./dtos/login.dto";
+
 export * from "./others/painting-size.type";
 export * from "./others/roles.type";
 export * from "./others/validate.type";

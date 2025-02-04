@@ -38,3 +38,16 @@ hr {
 .transition-simple {
   transition: 0.4s;
 }
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  animation: spin 2s linear infinite;
+}
