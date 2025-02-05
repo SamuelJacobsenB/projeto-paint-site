@@ -1,10 +1,14 @@
 "use client";
 
-import { MessageProvider } from ".";
+import { MessageProvider, UserProvider } from ".";
 import { ComponentWithChildren } from "@/types";
 
 const Providers = ({ children }: ComponentWithChildren) => {
-  return <MessageProvider>{children}</MessageProvider>;
+  return (
+    <UserProvider>
+      <MessageProvider>{children}</MessageProvider>
+    </UserProvider>
+  );
 };
 
 export { Providers };
