@@ -10,7 +10,7 @@ interface FormLinkProps {
 const FormLink = ({ icon = <I.Home />, href = "/" }: FormLinkProps) => {
   return (
     <div className="w-full max-w-lg">
-      <div className="flex justify-center items-center bg-white text-black text-3xl size-12 rounded-md">
+      <div className="flex justify-center items-center bg-white text-3xl size-12 rounded-md">
         <Link href={href}>{icon}</Link>
       </div>
     </div>

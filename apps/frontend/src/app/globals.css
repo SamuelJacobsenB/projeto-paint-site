@@ -8,7 +8,7 @@
   --dark_primary: #cc9000;
   --secondary: #171717;
   --light_secondary: #282828;
-  --terciary: #f6f6f6;
+  --terciary: #e4e4e4;
 }
 
 * {
@@ -21,8 +21,10 @@
 html,
 body,
 #root {
+  display: flex;
+  flex-direction: column;
   min-width: 100%;
-  min-height: 100%;
+  min-height: 100vh;
 }
 
 a:hover {

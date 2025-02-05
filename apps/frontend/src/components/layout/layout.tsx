@@ -5,12 +5,11 @@ const Layout = ({ children }: ComponentWithChildren) => {
   return (
     <>
       <Header />
-      <div
-        className="flex flex-col flex-wrap bg-secondary min-w-full min-h-full lg:flex-row
-      "
-      >
+      <div className="flex flex-1 flex-col lg:flex-row bg-secondary w-full min-h-full">
         <NavBar />
-        <div className="flex-1 bg-light_secondary p-8">{children}</div>
+        <div className="flex-grow bg-light_secondary w-full p-8">
+          {children}
+        </div>
       </div>
     </>
   );
