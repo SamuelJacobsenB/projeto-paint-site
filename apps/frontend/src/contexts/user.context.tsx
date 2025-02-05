@@ -9,12 +9,16 @@ import {
 } from "react";
 import { Controller } from "@/services";
 import { ComponentWithChildren } from "@/types";
-import { LoginDto, User } from "@core/types";
+import { LoginDto, User, UserDto, ValidateUserDto } from "@core/types";
 
 interface UserContextProps {
   user?: User;
   findUser: (id: string) => Promise<void>;
-  login: (loginDto: LoginDto) => Promise<{ error: boolean }>;
+  signup: (userDto: UserDto) => Promise<{ error?: string }>;
+  verifyEmail: (
+    validateUserDto: ValidateUserDto
+  ) => Promise<{ error?: string }>;
+  login: (loginDto: LoginDto) => Promise<{ error?: string }>;
   logout: () => void;
 }
 
@@ -44,6 +48,33 @@ export const UserProvider = ({ children }: ComponentWithChildren) => {
     setUser(data);
   }, []);
 
+  const signup = useCallback(async (userDto: UserDto) => {
+    const controller = new Controller();
+
+    const { error } = await controller.post<UserDto>("/user", userDto);
+
+    if (error) {
+      return { error };
+    }
+
+    return { error: undefined };
+  }, []);
+
+  const verifyEmail = useCallback(async (validateUserDto: ValidateUserDto) => {
+    const controller = new Controller();
+
+    const { error } = await controller.post<ValidateUserDto>(
+      "/auth/validate",
+      validateUserDto
+    );
+
+    if (error) {
+      return { error };
+    }
+
+    return { error: undefined };
+  }, []);
+
   const login = useCallback(
     async (loginDto: LoginDto) => {
       const controller = new Controller();
@@ -54,14 +85,14 @@ export const UserProvider = ({ children }: ComponentWithChildren) => {
       );
 
       if (error) {
-        return { error: true };
+        return { error };
       }
 
       localStorage.setItem("access_token", data.access_token);
 
       await findUser();
 
-      return { error: false };
+      return { error: undefined };
     },
     [findUser]
   );
@@ -76,7 +107,9 @@ export const UserProvider = ({ children }: ComponentWithChildren) => {
   }, [findUser]);
 
   return (
-    <userContext.Provider value={{ user, findUser, login, logout }}>
+    <userContext.Provider
+      value={{ user, findUser, signup, verifyEmail, login, logout }}
+    >
       {children}
     </userContext.Provider>
   );

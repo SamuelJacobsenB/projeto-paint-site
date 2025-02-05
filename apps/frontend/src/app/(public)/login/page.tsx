@@ -31,10 +31,10 @@ const Login = () => {
       return;
     }
 
-    const { error } = await login(loginDto);
+    const { error: reqError } = await login(loginDto);
 
-    if (error) {
-      showMessage("Falha ao realizar login", "error");
+    if (reqError) {
+      setError(reqError);
       return;
     }
 
@@ -55,18 +55,18 @@ const Login = () => {
         id="email"
         name="email"
         placeholder="Seu email"
-        type="text"
+        type="email"
         required
         className="w-full"
         value={email}
         setValue={setEmail}
       />
       <Input
-        label="Senha:"
+        label="Senha"
         color="primary"
         id="password"
         name="password"
-        placeholder="Suas senha"
+        placeholder="Sua senha"
         type="password"
         className="w-full"
         value={password}

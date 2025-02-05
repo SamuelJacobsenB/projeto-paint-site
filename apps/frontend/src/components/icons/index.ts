@@ -1,4 +1,3 @@
-import { BiLoader } from "react-icons/bi";
 import {
   IoCheckmark,
   IoClose,
@@ -6,12 +5,13 @@ import {
   IoMenu,
   IoWarning,
 } from "react-icons/io5";
+import { LuLoaderCircle } from "react-icons/lu";
 
 const I = {
   Checkmark: IoCheckmark,
   Close: IoClose,
   Home: IoHome,
-  Loader: BiLoader,
+  Loader: LuLoaderCircle,
   Menu: IoMenu,
   Warning: IoWarning,
 };

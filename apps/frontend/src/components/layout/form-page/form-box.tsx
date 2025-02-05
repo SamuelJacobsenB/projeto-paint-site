@@ -1,6 +1,8 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import Image from "next/image";
-import { I } from "@/components";
+import { I, Loader } from "@/components";
 import { ComponentWithChildren } from "@/types";
 
 interface FormBoxProps extends ComponentWithChildren {
@@ -17,6 +19,8 @@ const FormBox = ({
   setError,
   children,
 }: FormBoxProps) => {
+  const [isLoading, setIsLoading] = useState(false);
+
   return (
     <div className="flex flex-col items-center gap-4 bg-white w-full max-w-lg p-6 rounded-md">
       <Image
@@ -28,21 +32,34 @@ const FormBox = ({
       <hr />
       <h1 className="text-3xl font-bold w-full px-4">{title}</h1>
       <form
-        onSubmit={async (evt) => await onSubmit(evt)}
+        onSubmit={async (evt) => {
+          setIsLoading(true);
+          setError("");
+
+          await onSubmit(evt).finally(() => setIsLoading(false));
+        }}
         className="flex flex-col items-center gap-4 w-full p-4"
       >
-        {error && (
-          <div className="flex justify-between items-center gap-4 bg-red-600 text-white text-md w-full p-2 px-4 rounded">
-            <div className="flex items-center gap-4">
-              <I.Warning className="text-xl" />
-              {error}
-            </div>
-            <button onClick={() => setError("")}>
-              <I.Close className="text-2xl" />
-            </button>
+        {isLoading ? (
+          <div className="flex justify-center items-center w-full min-h-44">
+            <Loader className="size-10" />
           </div>
+        ) : (
+          <>
+            {error && (
+              <div className="flex justify-between items-center gap-4 bg-red-600 text-white text-md w-full p-2 px-4 rounded">
+                <div className="flex items-center gap-4">
+                  <I.Warning className="text-xl" />
+                  {error}
+                </div>
+                <button onClick={() => setError("")}>
+                  <I.Close className="text-2xl" />
+                </button>
+              </div>
+            )}
+            {children}
+          </>
         )}
-        {children}
       </form>
     </div>
   );
