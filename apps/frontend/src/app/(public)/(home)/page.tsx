@@ -13,12 +13,12 @@ const Home = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleCreatePainting = () => {
-    setIsModalVisible(true);
+    if (!user) {
+      showMessage("Você deve estar logado para realizar esta ação", "error");
+      return;
+    }
 
-    // if (!user) {
-    //   showMessage("Você deve estar logado para realizar esta ação", "error");
-    //   return;
-    // }
+    setIsModalVisible(true);
   };
 
   return (

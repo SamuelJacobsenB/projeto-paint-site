@@ -1,0 +1,82 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+import { useMessage } from "@/contexts";
+import { Controller } from "@/services";
+import { I, Button } from "@/components";
+import { validateUpdatePainting } from "@core/validators";
+import { Painting, UpdatePaintingDto } from "@core/types";
+import { PaintingModal } from "./painting-modal";
+
+interface PaintingHeaderProps {
+  painting: Painting;
+  art: string[];
+}
+
+const PaintingHeader = ({ painting, art }: PaintingHeaderProps) => {
+  const { showMessage } = useMessage();
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const controller = new Controller();
+
+  const handleSave = async () => {
+    const { valid, error } = validateUpdatePainting({ art });
+
+    if (!valid) {
+      showMessage(error as string, "error");
+      return;
+    }
+
+    const accessToken = localStorage.getItem("access_token");
+
+    if (!accessToken) {
+      showMessage("Você precisa estar logado para editar", "error");
+      return;
+    }
+
+    const { error: _error } = await controller.patch<UpdatePaintingDto>(
+      `/painting/${painting.id}`,
+      { art },
+      accessToken
+    );
+
+    if (_error) {
+      showMessage(_error, "error");
+      return;
+    }
+
+    showMessage("Salvo com sucesso", "success");
+  };
+
+  return (
+    <header className="flex items-center gap-2 bg-secondary text-white w-full p-2 ">
+      <Link className="text-xl p-2 rounded hover:bg-light_secondary" href={"/"}>
+        <I.Home />
+      </Link>
+      <Button
+        color="secondary"
+        className="bg-secondary hover:bg-light_secondary"
+        onClick={async () => await handleSave()}
+      >
+        Salvar
+      </Button>
+      <Button
+        color="secondary"
+        className="bg-secondary hover:bg-light_secondary"
+        onClick={() => setIsModalVisible(true)}
+      >
+        Visualizar
+      </Button>
+      <PaintingModal
+        size={painting.size}
+        art={art}
+        isModalVisible={isModalVisible}
+        setIsModalVisible={setIsModalVisible}
+      />
+    </header>
+  );
+};
+
+export { PaintingHeader };

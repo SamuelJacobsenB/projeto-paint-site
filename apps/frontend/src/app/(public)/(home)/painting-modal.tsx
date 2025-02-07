@@ -1,8 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import { Button, Form, Input, Modal, Select } from "@/components";
 import { useRouter } from "next/navigation";
+import { useMessage, useUser } from "@/contexts";
+import { Controller } from "@/services";
+import { generateDefaultPainting } from "@/functions";
+import { Button, Form, Input, Modal, Select } from "@/components";
+import { PaintingDto } from "@core/types";
 
 interface PaintingModalProps {
   isVisible: boolean;
@@ -11,13 +15,24 @@ interface PaintingModalProps {
 
 const PaintingModal = ({ isVisible, setIsVisible }: PaintingModalProps) => {
   const router = useRouter();
+  const { showMessage } = useMessage();
+  const { user } = useUser();
 
   const [error, setError] = useState("");
   const [title, setTitle] = useState("");
   const [size, setSize] = useState("16");
 
+  const controller = new Controller();
+
   const handleSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+
+    const accessToken = localStorage.getItem("access_token");
+
+    if (!user || !accessToken) {
+      showMessage("Você deve estar logado para realizar esta ação", "error");
+      return;
+    }
 
     if (title.length < 3) {
       setError("Título deve ter ao menos 3 letras");
@@ -29,12 +44,30 @@ const PaintingModal = ({ isVisible, setIsVisible }: PaintingModalProps) => {
       return;
     }
 
-    if (size !== "16" && size !== "32" && size !== "64") {
+    if (size !== "SMALL" && size !== "MEDIUM" && size !== "LARGE") {
       setError("Tamanho da arte inválido");
       return;
     }
 
-    router.push(`/create/painting/${title}/${size}`);
+    const defaultPainting = generateDefaultPainting(size);
+
+    const paintingDto: PaintingDto = {
+      title,
+      art: defaultPainting,
+    };
+
+    const { data, error } = await controller.post<PaintingDto>(
+      "/painting",
+      paintingDto,
+      accessToken
+    );
+
+    if (error) {
+      showMessage(error, "error");
+      return;
+    }
+
+    router.push(`/edit/painting/${data.id}`);
   };
 
   return (
