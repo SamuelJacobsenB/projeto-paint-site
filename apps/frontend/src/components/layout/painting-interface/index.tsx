@@ -1,6 +1,8 @@
-import { Painting } from "@core/types";
+"use client";
+
+import React, { useState } from "react";
 import { PaintingHeader } from "./painting-header";
-import React from "react";
+import { Cursor, Painting } from "@core/types";
 
 interface PaintingInterfaceProps {
   painting: Painting;
@@ -13,9 +15,13 @@ const PaintingInterface = ({
   art,
   setArt,
 }: PaintingInterfaceProps) => {
+  const [selectedButton, setSelectedButton] = useState<Cursor>("default");
+  const [color, setColor] = useState<string>("ffffff");
+
   return (
     <div className="flex flex-col w-full h-full">
       <PaintingHeader painting={painting} art={art} />
+      <div className="flex flex-col w-full h-full lg:flex-row"></div>
     </div>
   );
 };

@@ -22,3 +22,4 @@ export * from "./others/nav-link.type";
 export * from "./others/button-color.type";
 export * from "./others/input-color.type";
 export * from "./others/message.type";
+export * from "./others/cursor.type";
