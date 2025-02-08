@@ -4,15 +4,18 @@ import { useState } from "react";
 import Link from "next/link";
 import { useMessage } from "@/contexts";
 import { Controller } from "@/services";
-import { I, Button } from "@/components";
+import { I } from "@/components";
+import { PaintingModal } from "./painting-modal";
 import { validateUpdatePainting } from "@core/validators";
 import { Painting, UpdatePaintingDto } from "@core/types";
-import { PaintingModal } from "./painting-modal";
 
 interface PaintingHeaderProps {
   painting: Painting;
   art: string[];
 }
+
+const buttonStyle =
+  "text-lg text-white p-1 px-4 rounded hover:bg-light_secondary";
 
 const PaintingHeader = ({ painting, art }: PaintingHeaderProps) => {
   const { showMessage } = useMessage();
@@ -51,24 +54,27 @@ const PaintingHeader = ({ painting, art }: PaintingHeaderProps) => {
   };
 
   return (
-    <header className="flex items-center gap-2 bg-secondary text-white w-full p-2 ">
-      <Link className="text-xl p-2 rounded hover:bg-light_secondary" href={"/"}>
+    <header className="flex items-center gap-2 bg-secondary w-full p-2 ">
+      <Link
+        className="text-xl text-white p-2 rounded hover:bg-light_secondary"
+        href={"/"}
+      >
         <I.Home />
       </Link>
-      <Button
+      <button
         color="secondary"
-        className="bg-secondary hover:bg-light_secondary"
+        className={buttonStyle}
         onClick={async () => await handleSave()}
       >
         Salvar
-      </Button>
-      <Button
+      </button>
+      <button
         color="secondary"
-        className="bg-secondary hover:bg-light_secondary"
+        className={buttonStyle}
         onClick={() => setIsModalVisible(true)}
       >
         Visualizar
-      </Button>
+      </button>
       <PaintingModal
         size={painting.size}
         art={art}

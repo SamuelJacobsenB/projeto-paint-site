@@ -15,18 +15,30 @@ const PaintingModal = ({
   isModalVisible,
   setIsModalVisible,
 }: PaintingModalProps) => {
-  const pixelSize =
-    size === "SMALL" ? "30px" : size === "MEDIUM" ? "16px" : "8px";
+  const numberOfPixelInSide =
+    size === "SMALL" ? 16 : size === "MEDIUM" ? 32 : 64;
+
+  const pixelSize = size === "SMALL" ? 20 : size === "MEDIUM" ? 10 : 5;
 
   return (
-    <Modal isVisible={isModalVisible} setIsVisible={setIsModalVisible}>
-      <h1 className="text-lg mb-6">Pintura:</h1>
-      <div className="flex justify-center items-center bg-light_secondary p-4 m-auto rounded">
+    <Modal
+      isVisible={isModalVisible}
+      setIsVisible={setIsModalVisible}
+      className="text-black"
+    >
+      <h1 className="text-4xl mb-4">Pintura:</h1>
+      <div
+        className="flex flex-wrap m-auto border-2 border-black"
+        style={{
+          width: numberOfPixelInSide * pixelSize + 4 + "px",
+          height: numberOfPixelInSide * pixelSize + 4 + "px",
+        }}
+      >
         {art.map((pixelColor, i) => (
           <div
             style={{
-              width: pixelSize,
-              height: pixelSize,
+              width: pixelSize + "px",
+              height: pixelSize + "px",
               backgroundColor: "#" + pixelColor,
             }}
             key={i}

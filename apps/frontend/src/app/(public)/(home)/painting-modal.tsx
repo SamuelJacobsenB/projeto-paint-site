@@ -44,7 +44,7 @@ const PaintingModal = ({ isVisible, setIsVisible }: PaintingModalProps) => {
       return;
     }
 
-    if (size !== "SMALL" && size !== "MEDIUM" && size !== "LARGE") {
+    if (size !== "16" && size !== "32" && size !== "64") {
       setError("Tamanho da arte inválido");
       return;
     }

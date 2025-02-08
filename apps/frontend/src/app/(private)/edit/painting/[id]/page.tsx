@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import { Controller } from "@/services";
 import { Painting } from "@core/types";
 import { useMessage } from "@/contexts";
+import { LoadPage, PaintingInterface } from "@/components";
 
 const EditPainting = () => {
   const router = useRouter();
@@ -34,7 +35,11 @@ const EditPainting = () => {
     handleFindPainting();
   }, [id, handleFindPainting]);
 
-  return <div></div>;
+  if (!painting) {
+    return <LoadPage />;
+  }
+
+  return <PaintingInterface painting={painting} art={art} setArt={setArt} />;
 };
 
 export default EditPainting;

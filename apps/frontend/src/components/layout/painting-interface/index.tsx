@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import { PaintingHeader } from "./painting-header";
+import { ButtonArea } from "./button-area";
+import { ArtArea } from "./art-area";
 import { Cursor, Painting } from "@core/types";
 
 interface PaintingInterfaceProps {
@@ -19,9 +21,23 @@ const PaintingInterface = ({
   const [color, setColor] = useState<string>("ffffff");
 
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex flex-col w-full h-screen">
       <PaintingHeader painting={painting} art={art} />
-      <div className="flex flex-col w-full h-full lg:flex-row"></div>
+      <div className="flex flex-1 flex-col w-full h-screen lg:flex-row">
+        <ButtonArea
+          setColor={setColor}
+          selectedButton={selectedButton}
+          setSelectedButton={setSelectedButton}
+        />
+        <ArtArea
+          art={art}
+          setArt={setArt}
+          size={painting.size}
+          color={color}
+          setColor={setColor}
+          selectedButton={selectedButton}
+        />
+      </div>
     </div>
   );
 };

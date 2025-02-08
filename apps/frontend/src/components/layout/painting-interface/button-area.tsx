@@ -1,11 +1,12 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import { Cursor } from "@core/types";
 import { I } from "@/components/icons";
 
 interface ButtonAreaProps {
   selectedButton: Cursor;
   setSelectedButton: React.Dispatch<React.SetStateAction<Cursor>>;
-  color: string;
   setColor: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -16,11 +17,12 @@ const selectedButtonStyle =
 const ButtonArea = ({
   selectedButton,
   setSelectedButton,
-  color,
   setColor,
 }: ButtonAreaProps) => {
+  const [inputColor, setInputColor] = useState("#ffffff");
+
   return (
-    <div className="flex items-center justify-between bg-secondary text-white w-full p-2 border-t-2 border-light_secondary lg:h-full lg-flex-1 lg:max-w-52">
+    <div className="flex items-center justify-between bg-secondary text-white w-full p-2 border-t-2 border-light_secondary lg:h-full lg-flex-1 lg:flex-col lg:max-w-20">
       <div className="flex gap-2 text-2xl lg:flex-col">
         <button
           className={`${buttonStyle} ${
@@ -60,8 +62,12 @@ const ButtonArea = ({
           type="color"
           name="color"
           id="color"
-          value={color}
-          onChange={(evt) => setColor(evt.target.value)}
+          className="cursor-pointer"
+          value={inputColor}
+          onChange={(evt) => {
+            setInputColor(evt.target.value);
+            setColor(evt.target.value.slice(1));
+          }}
         />
       </div>
     </div>
