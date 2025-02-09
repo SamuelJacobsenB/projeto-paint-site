@@ -8,6 +8,7 @@ interface ArtAreaProps {
   selectedButton: Cursor;
   color: string;
   setColor: React.Dispatch<React.SetStateAction<string>>;
+  setInputColor: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ArtArea = ({
@@ -17,6 +18,7 @@ const ArtArea = ({
   selectedButton,
   color,
   setColor,
+  setInputColor,
 }: ArtAreaProps) => {
   const numberOfPixelInSide =
     size === "SMALL" ? 16 : size === "MEDIUM" ? 32 : 64;
@@ -45,7 +47,10 @@ const ArtArea = ({
 
         break;
       case "color-selector":
-        setColor(target.style.backgroundColor.slice(1));
+        const backgroundColor = art[i];
+
+        setColor(backgroundColor);
+        setInputColor("#" + backgroundColor);
 
         break;
       default:

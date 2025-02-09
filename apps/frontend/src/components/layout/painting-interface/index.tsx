@@ -19,6 +19,7 @@ const PaintingInterface = ({
 }: PaintingInterfaceProps) => {
   const [selectedButton, setSelectedButton] = useState<Cursor>("default");
   const [color, setColor] = useState<string>("ffffff");
+  const [inputColor, setInputColor] = useState("#ffffff");
 
   return (
     <div className="flex flex-col w-full h-screen">
@@ -28,6 +29,8 @@ const PaintingInterface = ({
           setColor={setColor}
           selectedButton={selectedButton}
           setSelectedButton={setSelectedButton}
+          inputColor={inputColor}
+          setInputColor={setInputColor}
         />
         <ArtArea
           art={art}
@@ -36,6 +39,7 @@ const PaintingInterface = ({
           color={color}
           setColor={setColor}
           selectedButton={selectedButton}
+          setInputColor={setInputColor}
         />
       </div>
     </div>

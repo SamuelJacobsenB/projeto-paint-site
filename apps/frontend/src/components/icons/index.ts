@@ -5,11 +5,10 @@ import {
   IoMenu,
   IoWarning,
   IoAdd,
-  IoPencil,
   IoTrash,
   IoColorWand,
 } from "react-icons/io5";
-import { FaEraser } from "react-icons/fa6";
+import { FaEraser, FaPencil } from "react-icons/fa6";
 import { LuLoaderCircle } from "react-icons/lu";
 import { RxCursorArrow } from "react-icons/rx";
 
@@ -22,7 +21,7 @@ const I = {
   Home: IoHome,
   Loader: LuLoaderCircle,
   Menu: IoMenu,
-  Pencil: IoPencil,
+  Pencil: FaPencil,
   PickColor: IoColorWand,
   Trash: IoTrash,
   Warning: IoWarning,

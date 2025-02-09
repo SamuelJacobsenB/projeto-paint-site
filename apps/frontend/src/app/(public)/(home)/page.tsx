@@ -1,13 +1,25 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useMessage, useUser } from "@/contexts";
-import { Button, CreateCardButton, Layout } from "@/components";
+import { usePaintingsByAuthor } from "@/hooks";
+import {
+  Button,
+  CreateCardButton,
+  Layout,
+  LoadPage,
+  PaintingCard,
+} from "@/components";
 import { PaintingModal } from "./painting-modal";
 
 const Home = () => {
+  const router = useRouter();
+
   const { showMessage } = useMessage();
   const { user } = useUser();
+
+  const { paintings, loading } = usePaintingsByAuthor();
 
   const [isPaintingContent, setIsPaintingContent] = useState(true);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -20,6 +32,10 @@ const Home = () => {
 
     setIsModalVisible(true);
   };
+
+  if (loading) {
+    return <LoadPage />;
+  }
 
   return (
     <Layout>
@@ -51,6 +67,14 @@ const Home = () => {
               text="Nova pintura"
               onClick={() => handleCreatePainting()}
             />
+            {paintings &&
+              paintings.map((painting, i) => (
+                <PaintingCard
+                  painting={painting}
+                  onClick={() => router.push(`/edit/painting/${painting.id}`)}
+                  key={i}
+                />
+              ))}
           </div>
         </>
       ) : (

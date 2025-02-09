@@ -72,15 +72,3 @@ hr {
 .message-animation {
   animation: message-slide 6s ease-in-out;
 }
-
-.cursor-pencil {
-  cursor: url("/svgs/pencil.svg"), auto;
-}
-
-.cursor-color-selector {
-  cursor: url("/svgs/filter.svg"), auto;
-}
-
-.cursor-eraser {
-  cursor: url("/svgs/eraser.svg"), auto;
-}

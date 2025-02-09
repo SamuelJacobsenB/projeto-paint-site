@@ -40,7 +40,7 @@ const PaintingHeader = ({ painting, art }: PaintingHeaderProps) => {
     }
 
     const { error: _error } = await controller.patch<UpdatePaintingDto>(
-      `/painting/${painting.id}`,
+      `/painting/update/${painting.id}`,
       { art },
       accessToken
     );
@@ -57,6 +57,7 @@ const PaintingHeader = ({ painting, art }: PaintingHeaderProps) => {
     <header className="flex items-center gap-2 bg-secondary w-full p-2 ">
       <Link
         className="text-xl text-white p-2 rounded hover:bg-light_secondary"
+        onClick={async () => await handleSave()}
         href={"/"}
       >
         <I.Home />
