@@ -1,28 +1,37 @@
 "use client";
 
 import React, { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useMessage, useUser } from "@/contexts";
 import { Controller } from "@/services";
-import { generateDefaultPainting } from "@/functions";
 import { Button, Form, Input, Modal, Select } from "@/components";
-import { PaintingDto } from "@core/types";
+import { Painting, PostDto } from "@core/types";
 
-interface PaintingModalProps {
+interface PostModalProps {
+  paintings: Painting[];
+  refecthPosts: () => Promise<void>;
   isVisible: boolean;
   setIsVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const PaintingModal = ({ isVisible, setIsVisible }: PaintingModalProps) => {
-  const router = useRouter();
+const PostModal = ({
+  paintings,
+  refecthPosts,
+  isVisible,
+  setIsVisible,
+}: PostModalProps) => {
   const { showMessage } = useMessage();
   const { user } = useUser();
 
   const [error, setError] = useState("");
   const [title, setTitle] = useState("");
-  const [size, setSize] = useState("16");
+  const [paintingTitle, setPaintingTitle] = useState("Selecione uma pintura");
 
   const controller = new Controller();
+
+  const paintingOptions = [
+    "Selecione uma pintura",
+    ...paintings.map((painting) => painting.title),
+  ];
 
   const handleSubmit = async (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -39,26 +48,33 @@ const PaintingModal = ({ isVisible, setIsVisible }: PaintingModalProps) => {
       return;
     }
 
-    if (title.length > 20) {
-      setError("Título deve ter no máximo 20 letras");
+    if (title.length > 30) {
+      setError("Título deve ter no máximo 30 letras");
       return;
     }
 
-    if (size !== "16" && size !== "32" && size !== "64") {
-      setError("Tamanho da arte inválido");
+    if (!paintingTitle || paintingTitle === "Selecione uma pintura") {
+      setError("Selecione uma pintura");
       return;
     }
 
-    const defaultPainting = generateDefaultPainting(size);
+    const paintingId = paintings.find(
+      (painting) => painting.title === paintingTitle
+    )?.id;
 
-    const paintingDto: PaintingDto = {
+    if (!paintingId) {
+      showMessage("Pintura não encontrada", "error");
+      return;
+    }
+
+    const postDto: PostDto = {
       title,
-      art: defaultPainting,
+      paintingId,
     };
 
-    const { data, error } = await controller.post<PaintingDto>(
-      "/painting",
-      paintingDto,
+    const { error } = await controller.post<PostDto>(
+      "/post",
+      postDto,
       accessToken
     );
 
@@ -67,8 +83,10 @@ const PaintingModal = ({ isVisible, setIsVisible }: PaintingModalProps) => {
       return;
     }
 
+    showMessage("Postagem criada com sucesso", "success");
     setIsVisible(false);
-    router.push(`/edit/painting/${data.id}`);
+
+    await refecthPosts();
   };
 
   return (
@@ -94,21 +112,21 @@ const PaintingModal = ({ isVisible, setIsVisible }: PaintingModalProps) => {
           setValue={setTitle}
         />
         <Select
-          label="Tamanho"
+          label="Pintura"
           color="primary"
-          id="size"
-          name="size"
-          options={["16", "32", "64"]}
+          id="painting"
+          name="painting"
+          options={paintingOptions}
           className="w-full"
-          value={size}
-          setValue={setSize}
+          value={paintingTitle}
+          setValue={setPaintingTitle}
         />
         <Button type="submit" color="primary" className="w-full">
-          Criar
+          Postar
         </Button>
       </Form>
     </Modal>
   );
 };
 
-export { PaintingModal };
+export { PostModal };
